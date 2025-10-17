@@ -1,0 +1,1 @@
+pip install streamlit db-sqlite3 DateTime bcrypt streamlit-extras
