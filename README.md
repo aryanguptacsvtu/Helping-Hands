@@ -1,9 +1,18 @@
-# 🌍 Helping Hands – Volunteer & NGO Connection Platform
+[![Typing SVG](https://readme-typing-svg.demolab.com?font=Monoton\&size=72\&pause=12\&speed=15\&color=00FF7F\&center=true\&vCenter=true\&width=1800\&height=160\&lines=Helping+Hands;Connecting+Volunteers+with+NGOs;Make+an+impact,+one+event+at+a+time)](https://github.com/aryanguptacsvtu/Helping-Hands)
 
-> “Connecting compassionate volunteers with impactful NGOs and community events.”
+---
 
-Helping Hands is a **Streamlit-based web application** that bridges the gap between **volunteers** and **NGOs**.  
-It enables NGOs to **create, manage, and track community service events**, while volunteers can **discover, join, and contribute** to causes they care about — all in one place.
+<h1 align="center">🤝 Helping Hands -- Volunteer & NGO Connection Platform</h1>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/Python-3.10%2B-blue.svg" alt="Python Version" />
+  <img src="https://img.shields.io/badge/Streamlit-1.24%2B-orange.svg" alt="Streamlit" />
+  <img src="https://img.shields.io/badge/SQLite-3.x-lightgrey.svg" alt="SQLite" />
+  <img src="https://img.shields.io/badge/Auth-bcrypt-green.svg" alt="bcrypt" />
+  <img src="https://img.shields.io/badge/License-MIT-brightgreen.svg" alt="License" />
+</p>
+
+> **Helping Hands** is a Streamlit web app that connects compassionate volunteers with NGOs and community events -- make it easy to find, join, and manage volunteer opportunities.
 
 ---
 
