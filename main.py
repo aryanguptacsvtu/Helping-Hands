@@ -141,6 +141,45 @@ def get_joined_events(volunteer_email):
         rows = c.fetchall()
     return rows
 
+# ------------------ EMAIL VALIDATION -------------------------------------------------------
+def validate_email(email):
+    k, j, d = 0, 0, 0
+    if len(email) >= 6:
+        if email[0].isalpha():
+
+            if ("@" in email) and (email.count("@") == 1):
+
+                if (email[-4] == ".") ^ (email[-3] == "."):
+                    for i in email:
+                        if i.isspace():
+                            k = 1
+                        elif i.isalpha():
+                            if i == i.upper():
+                                j = 1
+                        elif i.isdigit():
+                            continue
+                        elif i == "@" or i == "." or i == "_" or i == "-":
+                            continue
+                        else:
+                            d = 1
+
+                    if k == 1 or j == 1 or d == 1:
+                        return ("❌ Invalid email.Contains space, uppercase letters, or invalid special characters.\n")
+
+                    else:
+                        return ("✅ Valid email.\n")
+                else:
+                    return ("❌ Invalid email.Incorrect domain format.\n")
+            else:
+                return ("❌ Invalid email.Email must contain exactly one '@'.\n")
+
+        else:
+            return ("❌ Invalid email.Email must start with a letter.\n")
+
+    else:
+        return ("❌ Invalid email.Email too short.\n")
+
+
 # ------------------ STREAMLIT UI --------------------------------------------------------------------
 create_tables()
 
@@ -310,22 +349,34 @@ if choice == "Home":
 # ---- Register --------------
 elif choice == "Register":
     st.subheader("🔑 Create New Account")
-    name = st.text_input("Full Name", key="reg_name")
+
+    # place role selection before the name input so we can change the name label dynamically
+    role = st.selectbox("Role", ["Volunteer", "NGO"], key="reg_role")
+
+    # dynamic label based on selected role
+    name_label = "Volunteer Name" if role == "Volunteer" else "NGO Name"
+
+    name = st.text_input(name_label, key="reg_name")
     email = st.text_input("Email", key="reg_email")
     password = st.text_input("Password", type="password", key="reg_pass")
-    role = st.selectbox("Role", ["Volunteer", "NGO"], key="reg_role")
 
     if st.button("Register"):
         if name and email and password:
-            hashed_pw = bcrypt.hashpw(password.encode(), bcrypt.gensalt())
-            try:
-                add_userdata(name, email, hashed_pw, role)
-                st.success("✅ Account created successfully!")
-                st.info("Now you can login from the Login Page.")
-            except Exception:
-                st.error("⚠️ Error: This email might already be registered.")
+            # validate email before creating account
+            validation_msg = validate_email(email)
+            if not validation_msg.startswith("✅"):
+                st.error(validation_msg)
+            else:
+                hashed_pw = bcrypt.hashpw(password.encode(), bcrypt.gensalt())
+                try:
+                    add_userdata(name, email, hashed_pw, role)
+                    st.success("✅ Account created successfully!")
+                    st.info("Now you can login from the Login Page.")
+                except Exception:
+                    st.error("⚠️ Error: This email might already be registered.")
         else:
             st.warning("Please fill all fields before registering.")
+
 
 # ---- Login / Dashboard ---------------
 elif choice == "Login":
